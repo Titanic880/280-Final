@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Standards
+namespace FinalProj_Helper
 {
-    public class Class1
+    class Helper_Connection
     {
     }
 }

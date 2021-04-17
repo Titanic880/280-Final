@@ -1,0 +1,46 @@
+#Final 280 Scoping
+#Remote Help App
+
+Additional Explination:
+	.When requesting it should prompt a messagebox w/ Yes/No; (Can use a single object with a bool for incoming or outgoing)
+	.Encrypted Messaging:
+		.Keys will be generated when a connection is established (or keys are premade and distrobuted with program)
+	.Database implementation will exist within the Standards class library,
+	which means even after seperating the projects they will both have the same code to access the DB
+
+Things i Hope to implement:
+	
+	.Host Is the Helpee (Client)
+	.Connector is the Helper (Server/Host)
+	.Allow the Helper to request keyboard control and/or mouse control seperately
+	.Passing of DataTypes should not happen (Should always be a user created datatype)
+	.User accounts built similar to the 275_Final
+	.File Transfer w/ prompt (File Transfer object {Name of file + Byte[]})
+	.Allow users to upload a file to showup on a small box? (store the image as a byte[])
+	.Determine if i want to save the image or pass it through to a different process to send it to the client
+	.Encrypted messaging
+	.Basic Chat features
+	
+Helper Features:
+	.The picturebox that shows the image itself will be a smaller size but same ratio (won't need to convert then)
+	.Request a share screen
+	.Focus of the picturebox is needed for typing/clicking to get sent to the Helpee
+	.if attempting to send a input to the Helpee and it is current disabled prompt the helper if they wanna ask for control
+	.
+	
+Helpee Features:
+	.Hide the picture form/intergrate it into the main Form (Similar to OBS?)
+	.Allow the setting of a timer for how long the control is given to the Helper
+	
+	
+Objects to be used:
+	.User (DB Saved)
+	.Control (bool Keyboard_access, 
+	bool Mouse_access, 
+	int Timer_Duration, 
+	bool Sender(determines if its being sent or recieved))(Not saved)
+	.User_Input (Datapacket of what the user input is)
+	
+	.File_Standard (String FName, Byte[] File) (Db Saved? (only if accepted?))
+	.Possibly something for image? (depending on what the primitive type of the image is)
+	.
