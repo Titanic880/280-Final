@@ -1,4 +1,5 @@
-﻿using Standards.Network;
+﻿using Standards;
+using Standards.Network;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -31,17 +32,63 @@ namespace FinalProj_Helper
             messages.Add("");
         }
 
-
-        private void PbScreenShare_MouseClick(object sender, MouseEventArgs e)
-        {
-
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PbScreenShare_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
+            //Checks if keyboard control is allowed
+            if (connection.Allowed_Control.KeyBoard)
+            {
 
+            }
+            else
+            {
+                RequestControl("Keyboard");
+            }
+        }
+        private void PbScreenShare_Click(object sender, EventArgs e)
+        {
+            //Checks if Mouse control is allowed
+            if (connection.Allowed_Control.Mouse)
+            {
+
+            }
+            else
+            {
+                RequestControl(true);
+            }
+        }
+        private void RequestControl(bool type)
+        {
+            //Same bool Idea as User_Input
+            string txt;
+            if (type)
+                txt = "Would you like to request Keyboard Access?";
+            else
+                txt = "Would you like to request Mouse Access?";
+
+
+            DialogResult res = MessageBox.Show(txt, "Request Access?", MessageBoxButtons.YesNo);
+            if (res == DialogResult.Yes)
+            {
+                //Generates and sends a request to the host (helpee)
+                User_Input ui = new User_Input
+                {
+                    Request = true
+                };
+                connection.Send_To_Helpee(ui);
+                MessageBox.Show("Request Sent!");
+            }
         }
 
+        /// <summary>
+        /// QoL Textbox controls
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void TbChatMessage_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
             if (messagesPOS < 0) //Loops to top
@@ -83,7 +130,7 @@ namespace FinalProj_Helper
 
                 //Sends a message if enter is pressed
                 case Keys.Enter:
-                    SendToHostee();
+                    Send_Message();
                     break;
                 default:
                     break;
@@ -116,6 +163,21 @@ namespace FinalProj_Helper
             else
                 MessageBox.Show("File selection cancelled");
             
+        }
+
+        private void Send_Message()
+        {
+            File_Standard fs = new File_Standard
+            {
+                File_Contents = General_Standards.Encrypt(TbChatMessage.Text),
+                File_Name = "Chat_Message",
+                File_Ext = "MSG"
+            };
+
+            LstChat.Items.Add(TbChatMessage.Text);
+            TbChatMessage.Text = "";
+
+            connection.Send_To_Helpee(fs);
         }
     }
 }

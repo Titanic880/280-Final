@@ -5,6 +5,7 @@ namespace Standards.Network
 {
     /// <summary>
     /// THIS IS FOR REFERENCE, DO NOT COPY PASTE INTO THE END SOLUTION <= Fuk-u :D
+    /// (^was me in a test solution)
     /// </summary>
     [Serializable]
     public class User_Input
@@ -14,6 +15,10 @@ namespace Standards.Network
         /// </summary>
         public bool Input_Type { get; set; } = true;
 
+        /// <summary>
+        /// Used to determine if the helper is asking to control
+        /// </summary>
+        public bool Request { get; set; } = false;
         public Keys Key_Pressed { get; set; }
 
         #region Mouse_Click
