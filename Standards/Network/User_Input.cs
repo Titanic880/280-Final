@@ -4,7 +4,7 @@ using System;
 namespace Standards.Network
 {
     /// <summary>
-    /// THIS IS FOR REFERENCE, DO NOT COPY PASTE INTO THE END SOLUTION
+    /// THIS IS FOR REFERENCE, DO NOT COPY PASTE INTO THE END SOLUTION <= Fuk-u :D
     /// </summary>
     [Serializable]
     public class User_Input
