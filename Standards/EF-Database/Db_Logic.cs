@@ -19,8 +19,10 @@ namespace Standards.EF_Database
         {
             if (Sql_Functions.Connected)
             {
-
+                Sql_Functions.RunScalar($"SELECT * FROM USERS WHERE UserName = '{UserName}' and Password = '{Password}'");
             }
+
+            throw new NotImplementedException();
         }
 
         public static void Register(string UserName, string Password)

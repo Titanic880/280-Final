@@ -33,30 +33,11 @@ namespace Standards.User
         /// Should always be hashed
         /// </summary>
         public string Password { get; set; }
-
-        /// <summary>
-        /// The image of the profile stored in a byte format
-        /// </summary>
-        public byte[] Profile_Image { get; set; }
         #endregion Properties
 
         public User_Data()
         {
 
-        }
-
-        public byte[] Convert_To_Bytes(Bitmap img)
-        {
-            byte[] ret = null;
-            throw new NotImplementedException();
-            return ret;
-        }
-
-        public Bitmap Convert_From_Bytes(byte[] img)
-        {
-            Bitmap ret = null;
-            throw new NotImplementedException();
-            return ret;
         }
 
         #region Overrides
