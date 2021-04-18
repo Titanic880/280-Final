@@ -14,7 +14,6 @@ namespace FinalProj_Helper
     public class Helper_Connection
     {
         private readonly string IPAddress;
-        public User_Data User { get; set; }
         public Control Allowed_Control { get; set; }
 
         #region Delegates

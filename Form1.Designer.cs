@@ -35,14 +35,14 @@ namespace FinalProj_Helper
             this.LblChat = new System.Windows.Forms.Label();
             this.TbChatMessage = new System.Windows.Forms.TextBox();
             this.BtnSendFile = new System.Windows.Forms.Button();
-            this.CbIP = new System.Windows.Forms.ComboBox();
             this.BtnConnect = new System.Windows.Forms.Button();
             this.BtnLogin = new System.Windows.Forms.Button();
             this.LbliP = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.TbUsername = new System.Windows.Forms.TextBox();
             this.LblPassword = new System.Windows.Forms.Label();
             this.LblUsername = new System.Windows.Forms.Label();
             this.MTbPassword = new System.Windows.Forms.MaskedTextBox();
+            this.TbIP = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PbScreenShare)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,14 +102,6 @@ namespace FinalProj_Helper
             this.BtnSendFile.UseVisualStyleBackColor = true;
             this.BtnSendFile.Click += new System.EventHandler(this.BtnSendFile_Click);
             // 
-            // CbIP
-            // 
-            this.CbIP.FormattingEnabled = true;
-            this.CbIP.Location = new System.Drawing.Point(5, 136);
-            this.CbIP.Name = "CbIP";
-            this.CbIP.Size = new System.Drawing.Size(121, 21);
-            this.CbIP.TabIndex = 6;
-            // 
             // BtnConnect
             // 
             this.BtnConnect.Location = new System.Drawing.Point(5, 163);
@@ -128,6 +120,7 @@ namespace FinalProj_Helper
             this.BtnLogin.TabIndex = 8;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.UseVisualStyleBackColor = true;
+            this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // LbliP
             // 
@@ -138,12 +131,12 @@ namespace FinalProj_Helper
             this.LbliP.TabIndex = 9;
             this.LbliP.Text = "Users Ip";
             // 
-            // textBox1
+            // TbUsername
             // 
-            this.textBox1.Location = new System.Drawing.Point(5, 25);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(121, 20);
-            this.textBox1.TabIndex = 10;
+            this.TbUsername.Location = new System.Drawing.Point(5, 25);
+            this.TbUsername.Name = "TbUsername";
+            this.TbUsername.Size = new System.Drawing.Size(121, 20);
+            this.TbUsername.TabIndex = 10;
             // 
             // LblPassword
             // 
@@ -172,19 +165,26 @@ namespace FinalProj_Helper
             this.MTbPassword.TabIndex = 14;
             this.MTbPassword.UseSystemPasswordChar = true;
             // 
+            // TbIP
+            // 
+            this.TbIP.Location = new System.Drawing.Point(5, 137);
+            this.TbIP.Name = "TbIP";
+            this.TbIP.Size = new System.Drawing.Size(121, 20);
+            this.TbIP.TabIndex = 15;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.TbIP);
             this.Controls.Add(this.MTbPassword);
             this.Controls.Add(this.LblUsername);
             this.Controls.Add(this.LblPassword);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.TbUsername);
             this.Controls.Add(this.LbliP);
             this.Controls.Add(this.BtnLogin);
             this.Controls.Add(this.BtnConnect);
-            this.Controls.Add(this.CbIP);
             this.Controls.Add(this.BtnSendFile);
             this.Controls.Add(this.TbChatMessage);
             this.Controls.Add(this.LblChat);
@@ -207,14 +207,14 @@ namespace FinalProj_Helper
         private System.Windows.Forms.Label LblChat;
         private System.Windows.Forms.TextBox TbChatMessage;
         private System.Windows.Forms.Button BtnSendFile;
-        private System.Windows.Forms.ComboBox CbIP;
         private System.Windows.Forms.Button BtnConnect;
         private System.Windows.Forms.Button BtnLogin;
         private System.Windows.Forms.Label LbliP;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox TbUsername;
         private System.Windows.Forms.Label LblPassword;
         private System.Windows.Forms.Label LblUsername;
         private System.Windows.Forms.MaskedTextBox MTbPassword;
+        private System.Windows.Forms.TextBox TbIP;
     }
 }
 

@@ -1,5 +1,6 @@
 ﻿using Standards;
 using Standards.Network;
+using Standards.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,9 +17,8 @@ namespace FinalProj_Helper
 {
     public partial class Form1 : Form
     {
-        //Recieves messages/files
-        readonly Queue<object> IncomingData = new Queue<object>();
-        private Helper_Connection connection;
+        private Helper_Connection H_connection;
+        public static User_Data User { get; set; }
 
         //Message history system
         private readonly List<string> messages = new List<string>();
@@ -28,8 +28,8 @@ namespace FinalProj_Helper
         {
             InitializeComponent();
             //Sets up Network IP List
-            CbIP.DataSource = Dns.GetHostEntry(SystemInformation.ComputerName).AddressList
-               .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+            TbIP.Text = Dns.GetHostEntry(SystemInformation.ComputerName).AddressList
+               .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString();
 
             KeyPreview = true;
 
@@ -43,17 +43,17 @@ namespace FinalProj_Helper
         /// <param name="e"></param>
         private void PbScreenShare_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            if (connection != null)
-                if (connection.Allowed_Control != null)
+            if (H_connection != null)
+                if (H_connection.Allowed_Control != null)
                     //Checks if keyboard control is allowed
-                    if (connection.Allowed_Control.KeyBoard)
+                    if (H_connection.Allowed_Control.KeyBoard)
                     {
                         User_Input input = new User_Input
                         {
                             Input_Type = true,
                             Key_Pressed = e.KeyCode
                         };
-                        connection.Send_To_Helpee(input);
+                        H_connection.Send_To_Helpee(input);
                     }
                     else
                     {
@@ -68,10 +68,10 @@ namespace FinalProj_Helper
         /// <param name="e"></param>
         private void PbScreenShare_Click(object sender, EventArgs e)
         {
-            if (connection != null)
-                if (connection.Allowed_Control != null)
+            if (H_connection != null)
+                if (H_connection.Allowed_Control != null)
                     //Checks if Mouse control is allowed
-                    if (connection.Allowed_Control.Mouse)
+                    if (H_connection.Allowed_Control.Mouse)
                     {
                         User_Input input = new User_Input();
                         MouseEventArgs args = (MouseEventArgs)e;
@@ -80,7 +80,7 @@ namespace FinalProj_Helper
                         input.xRatio = (double)args.X / (double)PbScreenShare.Width;
                         input.yRatio = (double)args.Y / (double)PbScreenShare.Height;
 
-                        connection.Send_To_Helpee(input);
+                        H_connection.Send_To_Helpee(input);
                     }
                     else
                     {
@@ -105,7 +105,7 @@ namespace FinalProj_Helper
                 {
                     Request = true
                 };
-                connection.Send_To_Helpee(ui);
+                H_connection.Send_To_Helpee(ui);
                 MessageBox.Show("Request Sent!");
             }
         }
@@ -166,30 +166,34 @@ namespace FinalProj_Helper
 
         private void BtnSendFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog
+            if (H_connection != null)
             {
-                Title = "Choose a file to send",
-                Multiselect = false
-            };
-            DialogResult res =  ofd.ShowDialog();
-            if(res == DialogResult.OK)
-            {
-                string tmp = ofd.FileName.Split('\\')[ofd.FileName.Split('\\').Length - 1];
-                File_Standard fs = new File_Standard
-                {
-                    //Grabs the file Name
-                    File_Name = tmp.Split('.')[tmp.Split('.').Length - 1],
-                    //Grabs the last object that occurs after a period (File Extension)
-                    File_Ext = ofd.FileName.Split('.')[ofd.FileName.Split('.').Length - 1],
-                    //Gets the contents and sets the file flag
-                    File_Contents = File.ReadAllBytes(ofd.FileName),
-                    Is_File = true
-                };
 
-                connection.Send_To_Helpee(fs);
+                OpenFileDialog ofd = new OpenFileDialog
+                {
+                    Title = "Choose a file to send",
+                    Multiselect = false
+                };
+                DialogResult res = ofd.ShowDialog();
+                if (res == DialogResult.OK)
+                {
+                    string tmp = ofd.FileName.Split('\\')[ofd.FileName.Split('\\').Length - 1];
+                    File_Standard fs = new File_Standard
+                    {
+                        //Grabs the file Name
+                        File_Name = tmp.Split('.')[tmp.Split('.').Length - 1],
+                        //Grabs the last object that occurs after a period (File Extension)
+                        File_Ext = ofd.FileName.Split('.')[ofd.FileName.Split('.').Length - 1],
+                        //Gets the contents and sets the file flag
+                        File_Contents = File.ReadAllBytes(ofd.FileName),
+                        Is_File = true
+                    };
+
+                    H_connection.Send_To_Helpee(fs);
+                }
+                else
+                    MessageBox.Show("File selection cancelled");
             }
-            else
-                MessageBox.Show("File selection cancelled");
             
         }
 
@@ -205,15 +209,15 @@ namespace FinalProj_Helper
             LstChat.Items.Add(TbChatMessage.Text);
             TbChatMessage.Text = "";
 
-            connection.Send_To_Helpee(fs);
+            H_connection.Send_To_Helpee(fs);
         }
 
         private void BtnConnect_Click(object sender, EventArgs e)
         {
-            connection = new Helper_Connection((string)CbIP.SelectedItem);
-            connection.UpdatePicture += UpdatePicture;
-            connection.Rekoved_Control += Revoked_Control;
-            connection.FileIncoming += FileIncoming;
+            H_connection = new Helper_Connection(TbIP.Text);
+            H_connection.UpdatePicture += UpdatePicture;
+            H_connection.Rekoved_Control += Revoked_Control;
+            H_connection.FileIncoming += FileIncoming;
         }
 
         #region Delegates
@@ -244,5 +248,17 @@ namespace FinalProj_Helper
         }
         private void UpdatePicture(Image file) => PbScreenShare.Image = file;
         #endregion Delegates
+
+        private void BtnLogin_Click(object sender, EventArgs e)
+        {
+            User = Standards.EF_Database.Db_Logic.Login(TbUsername.Text, General_Standards.Hasher(MTbPassword.Text));
+            if (User != null)
+            {
+                TbUsername.Enabled = false;
+                MTbPassword.Enabled = false;
+                BtnLogin.Enabled = false;
+                BtnConnect.Enabled = true;
+            }
+        }
     }
 }
