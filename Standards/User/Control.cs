@@ -44,8 +44,14 @@ namespace Standards.User
         /// <param name="e"></param>
         private void Timer_Tick(object sender, EventArgs e)
         {
+            //Sets access values
             KeyBoard = false;
             Mouse = false;
+            
+            //Turns off the timer
+            timer.Stop();
+
+            //Sends to the helper class
             TimerComplete(this);
         }
         #endregion Timer_Control

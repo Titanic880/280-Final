@@ -16,6 +16,16 @@ namespace FinalProj_Helper
         public User_Data User { get; set; }
         public Control Allowed_Control { get; set; }
 
+        #region Delegates
+
+        //Runs when control is removed from the helper
+        public event ControlRevoked Rekoved_Control;
+        public delegate void ControlRevoked();
+
+        //Runs when a file/message is incoming
+        public event File_Recieved FileIncoming;
+        public delegate bool File_Recieved(File_Standard File);
+        #endregion Delegates
 
         //User Stack
         private TcpClient tcpClient;
@@ -47,27 +57,28 @@ namespace FinalProj_Helper
 
             while (true)
             {
+                //Checks for stream, if it is null then it checks down stream
+                //Depreciated?
                 if(nStream == null)
                 {
                     nStream = tcpClient.GetStream();
                     writer = new BinaryWriter(nStream);
                     Stream = new BinaryFormatter();
+                    if (nStream == null)
+                        continue;
                 }
                 object o = Stream.Deserialize(nStream);
 
                 switch (o)
                 {
-                    //Delegate? (With user prompt)
+                    //Passes the Standard up a level for processing (keeps this class clean)
                     case File_Standard _:
-
+                        FileIncoming((File_Standard)o);
                         break;
-                        //Delegate?
-                    case User_Input _:
-
-                        break;
-                        //Direct configure (Hook into internal delegate!)
+                        //Assigns the Helpee Control and ties the delegate
                     case Control _:
-
+                        Allowed_Control = (Control)o;
+                        Allowed_Control.TimerComplete += Allowed_Control_ControlRevoke;
                         break;
                         //UNIMPLEMENTED IDEA
                     case byte[] _:
@@ -77,8 +88,39 @@ namespace FinalProj_Helper
                     case string _:
 
                         break;
+
+                    default:
+                        //Better than a crash/Error?
+                        break;
                 }
             }
+        }
+
+        /// <summary>
+        /// Sends an object to the sender to be processed
+        /// </summary>
+        /// <param name="package"></param>
+        public void Send_To_Helpee(object package)
+        {
+            //Checks if there might be a problem
+            //Depreciated?
+            if (package == null || writer == null)
+                return;
+
+            IFormatter stream = new BinaryFormatter();
+            stream.Serialize(writer.BaseStream, package);
+        }
+
+        /// <summary>
+        /// notifies the helper that the control has been revoked
+        /// </summary>
+        /// <param name="new_Control"></param>
+        private void Allowed_Control_ControlRevoke(Control new_Control)
+        {
+            //Sets the new control information
+            Allowed_Control = new_Control;
+            //passes it up to the form
+            Rekoved_Control();
         }
     }
 }
