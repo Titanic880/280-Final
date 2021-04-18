@@ -13,6 +13,11 @@ namespace Standards.Network
         /// The file Extension of the file
         /// </summary>
         public string File_Ext { get; set; }
+
+        /// <summary>
+        /// If false then its an encrypted message
+        /// </summary>
+        public bool Is_File { get; set; } = false;
         /// <summary>
         /// Contents of the file
         /// </summary>

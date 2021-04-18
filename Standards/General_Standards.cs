@@ -48,37 +48,33 @@ namespace Standards
         /// Encrypts the data passed into it
         /// </summary>
         /// <returns></returns>
-        public static string Encrypt(string text)
+        public static byte[] Encrypt(string text)
         {
             if (!File.Exists("key"))
-                return "Key not found!";
-
+                return default;
+            //Builds the encryption service
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
             rsa.FromXmlString(File.ReadAllText("key"));
 
-            byte[] unencrypted = (text);
-            byte[] output = rsa.Encrypt(unencrypted, true);
-
-            File.WriteAllBytes(key + ".enc", output);
-            return "File has been encrypted!";
+            byte[] text_Bytes = Encoding.Default.GetBytes(text);
+            return rsa.Encrypt(text_Bytes, true);
         }
 
-        public static string Decrypt(string key, string path)
+        /// <summary>
+        /// Decrypts the byte[] to a string of text
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static string Decrypt(byte[] text)
         {
-            if (!File.Exists(key))
+            //Checks for the key
+            if (!File.Exists("key"))
                 return "Key not found!";
-            if (!File.Exists(path))
-                return "File not found";
-
+            //Builds the encryption service
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(File.ReadAllText(key));
+            rsa.FromXmlString(File.ReadAllText("key"));
 
-            byte[] gitbit = File.ReadAllBytes(path);
-
-            byte[] output = rsa.Decrypt(gitbit, true);
-
-            File.WriteAllBytes(path + ".dec", output);
-            return "File has been decrypted!";
+            return Encoding.Default.GetString(rsa.Decrypt(text, true));
         }
 
 
