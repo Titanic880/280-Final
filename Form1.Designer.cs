@@ -120,6 +120,7 @@ namespace FinalProj_Helper
             this.BtnLogin.TabIndex = 8;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.UseVisualStyleBackColor = true;
+            this.BtnLogin.Visible = false;
             this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // LbliP
@@ -137,6 +138,7 @@ namespace FinalProj_Helper
             this.TbUsername.Name = "TbUsername";
             this.TbUsername.Size = new System.Drawing.Size(121, 20);
             this.TbUsername.TabIndex = 10;
+            this.TbUsername.Visible = false;
             // 
             // LblPassword
             // 
@@ -146,6 +148,7 @@ namespace FinalProj_Helper
             this.LblPassword.Size = new System.Drawing.Size(53, 13);
             this.LblPassword.TabIndex = 12;
             this.LblPassword.Text = "Password";
+            this.LblPassword.Visible = false;
             // 
             // LblUsername
             // 
@@ -155,6 +158,7 @@ namespace FinalProj_Helper
             this.LblUsername.Size = new System.Drawing.Size(55, 13);
             this.LblUsername.TabIndex = 13;
             this.LblUsername.Text = "Username";
+            this.LblUsername.Visible = false;
             // 
             // MTbPassword
             // 
@@ -164,6 +168,7 @@ namespace FinalProj_Helper
             this.MTbPassword.Size = new System.Drawing.Size(121, 20);
             this.MTbPassword.TabIndex = 14;
             this.MTbPassword.UseSystemPasswordChar = true;
+            this.MTbPassword.Visible = false;
             // 
             // TbIP
             // 

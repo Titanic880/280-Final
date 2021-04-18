@@ -8,7 +8,7 @@ namespace Standards.User
     /// (Heavily Intergrated as if checks)
     /// </summary>
     [Serializable]
-    public class Control
+    public class User_Control
     {
         #region Properties
         /// <summary>
@@ -64,15 +64,15 @@ namespace Standards.User
         /// Runs when the timer has completed its runtime
         /// </summary>
         public event TimerDone TimerComplete;
-        public delegate void TimerDone(Control new_Control);
+        public delegate void TimerDone(User_Control new_Control);
         #endregion
         #region Constructors
         /// <summary>
         /// Loads Control with default settings
         /// </summary>
-        public Control() { }
+        public User_Control() { }
 
-        public Control(int Timer_Duration, bool Keyboard = true, bool Mouse = true, bool Use_Timer = true)
+        public User_Control(int Timer_Duration, bool Keyboard = true, bool Mouse = true, bool Use_Timer = true)
         {
             //Sets internal values
             Timer = Timer_Duration;

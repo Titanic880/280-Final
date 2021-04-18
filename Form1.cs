@@ -251,7 +251,7 @@ namespace FinalProj_Helper
 
         private void BtnLogin_Click(object sender, EventArgs e)
         {
-            User = Standards.EF_Database.Db_Logic.Login(TbUsername.Text, General_Standards.Hasher(MTbPassword.Text));
+            //User = Standards.EF_Database.Db_Logic.Login(TbUsername.Text, General_Standards.Hasher(MTbPassword.Text));
             if (User != null)
             {
                 TbUsername.Enabled = false;
