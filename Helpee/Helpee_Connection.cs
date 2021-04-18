@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Helpee
 {
-    class Helpee_Connection
+    public class Helpee_Connection
     {
+
+
+        public Helpee_Connection(string Ip)
+        {
+
+        }
     }
 }
