@@ -7,6 +7,7 @@ using System.Data;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -17,8 +18,7 @@ namespace FinalProj_Helper
     {
         //Recieves messages/files
         readonly Queue<object> IncomingData = new Queue<object>();
-        Helper_Connection connection;
-
+        private Helper_Connection connection;
 
         //Message history system
         private readonly List<string> messages = new List<string>();
@@ -27,39 +27,65 @@ namespace FinalProj_Helper
         public Form1()
         {
             InitializeComponent();
+            //Sets up Network IP List
+            CbIP.DataSource = Dns.GetHostEntry(SystemInformation.ComputerName).AddressList
+               .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).ToString();
+
             KeyPreview = true;
 
             messages.Add("");
         }
-
+        #region ScreenShare
         /// <summary>
-        /// 
+        /// Sends key inputs to the helpee
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void PbScreenShare_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
         {
-            //Checks if keyboard control is allowed
-            if (connection.Allowed_Control.KeyBoard)
-            {
-
-            }
-            else
-            {
-                RequestControl("Keyboard");
-            }
+            if (connection != null)
+                if (connection.Allowed_Control != null)
+                    //Checks if keyboard control is allowed
+                    if (connection.Allowed_Control.KeyBoard)
+                    {
+                        User_Input input = new User_Input
+                        {
+                            Input_Type = true,
+                            Key_Pressed = e.KeyCode
+                        };
+                        connection.Send_To_Helpee(input);
+                    }
+                    else
+                    {
+                        RequestControl(false);
+                    }
         }
+
+        /// <summary>
+        /// Sends mouse inputs to the helpee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void PbScreenShare_Click(object sender, EventArgs e)
         {
-            //Checks if Mouse control is allowed
-            if (connection.Allowed_Control.Mouse)
-            {
+            if (connection != null)
+                if (connection.Allowed_Control != null)
+                    //Checks if Mouse control is allowed
+                    if (connection.Allowed_Control.Mouse)
+                    {
+                        User_Input input = new User_Input();
+                        MouseEventArgs args = (MouseEventArgs)e;
+                        if (args.Button == MouseButtons.Left)
+                            input.Click_Side = true;
+                        input.xRatio = (double)args.X / (double)PbScreenShare.Width;
+                        input.yRatio = (double)args.Y / (double)PbScreenShare.Height;
 
-            }
-            else
-            {
-                RequestControl(true);
-            }
+                        connection.Send_To_Helpee(input);
+                    }
+                    else
+                    {
+                        RequestControl(true);
+                    }
         }
         private void RequestControl(bool type)
         {
@@ -83,7 +109,7 @@ namespace FinalProj_Helper
                 MessageBox.Show("Request Sent!");
             }
         }
-
+        #endregion ScreenShare
         /// <summary>
         /// QoL Textbox controls
         /// </summary>
@@ -140,9 +166,11 @@ namespace FinalProj_Helper
 
         private void BtnSendFile_Click(object sender, EventArgs e)
         {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Title = "Choose a file to send";
-            ofd.Multiselect = false;
+            OpenFileDialog ofd = new OpenFileDialog
+            {
+                Title = "Choose a file to send",
+                Multiselect = false
+            };
             DialogResult res =  ofd.ShowDialog();
             if(res == DialogResult.OK)
             {
@@ -158,7 +186,7 @@ namespace FinalProj_Helper
                     Is_File = true
                 };
 
-                SendToHostee(fs);
+                connection.Send_To_Helpee(fs);
             }
             else
                 MessageBox.Show("File selection cancelled");
@@ -179,5 +207,42 @@ namespace FinalProj_Helper
 
             connection.Send_To_Helpee(fs);
         }
+
+        private void BtnConnect_Click(object sender, EventArgs e)
+        {
+            connection = new Helper_Connection((string)CbIP.SelectedItem);
+            connection.UpdatePicture += UpdatePicture;
+            connection.Rekoved_Control += Revoked_Control;
+            connection.FileIncoming += FileIncoming;
+        }
+
+        #region Delegates
+        /// <summary>
+        /// HANDLES FILES AND MESSAGES
+        /// </summary>
+        /// <param name="File"></param>
+        /// <returns></returns>
+        private void FileIncoming(File_Standard FileR)
+        {
+            if (FileR.Is_File)
+            {
+                DialogResult res = MessageBox.Show($"File recieved, would you like to install it? ({FileR.File_Name}.{FileR.File_Ext})",
+                    "Install File?", MessageBoxButtons.YesNo);
+                if (res == DialogResult.Yes)
+                    File.WriteAllBytes(FileR.File_Name + FileR.File_Ext, FileR.File_Contents);
+            }
+            else
+                LstChat.Items.Add(General_Standards.Decrypt(FileR.File_Contents));
+        }
+
+        /// <summary>
+        /// Alerts the helper that the control has been revoked
+        /// </summary>
+        private void Revoked_Control()
+        {
+            MessageBox.Show("Control has been revoked (this is automatic)");
+        }
+        private void UpdatePicture(Image file) => PbScreenShare.Image = file;
+        #endregion Delegates
     }
 }

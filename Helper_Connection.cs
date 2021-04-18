@@ -7,6 +7,7 @@ using System.IO;
 using Standards.Network;
 using Standards.User;
 using Standards;
+using System.Drawing;
 
 namespace FinalProj_Helper
 {
@@ -24,7 +25,11 @@ namespace FinalProj_Helper
 
         //Runs when a file/message is incoming
         public event File_Recieved FileIncoming;
-        public delegate bool File_Recieved(File_Standard File);
+        public delegate void File_Recieved(File_Standard File);
+
+        //Handles incoming Images
+        public event Image_Update UpdatePicture;
+        public delegate void Image_Update(Image file);
         #endregion Delegates
 
         //User Stack
@@ -99,6 +104,10 @@ namespace FinalProj_Helper
                             Allowed_Control.Restart_Timer();
                         }
                         break;
+                    case Image _:
+                            
+                        break;
+
                         //UNIMPLEMENTED IDEA
                     case byte[] _:
 

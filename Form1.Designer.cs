@@ -118,6 +118,7 @@ namespace FinalProj_Helper
             this.BtnConnect.TabIndex = 7;
             this.BtnConnect.Text = "Connect to User";
             this.BtnConnect.UseVisualStyleBackColor = true;
+            this.BtnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
             // 
             // BtnLogin
             // 
