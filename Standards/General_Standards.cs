@@ -4,6 +4,8 @@ using System.Text;
 using System.Linq;
 using System.Net;
 using System;
+using System.IO;
+using System.Collections.Generic;
 
 namespace Standards
 {
@@ -23,29 +25,74 @@ namespace Standards
 
         #region Encryption
         /// <summary>
-        /// Encrypts the data passed into it
+        /// Generates a pair of keys
         /// </summary>
-        /// <returns></returns>
-        public static string Encrypt()
+        public static void GeneratePair(bool type = false)
         {
-            string ret = null;
-            throw new NotImplementedException();
-            return ret;
+            //Builds the RSA crypto that the keys are built in
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(2048);
+
+            if (type)
+            {
+                string privateKeyText = rsa.ToXmlString(true);
+                File.WriteAllText("Key", privateKeyText);
+            }
+            else
+            {
+                string publicKeyText = rsa.ToXmlString(false);
+                File.WriteAllText("Key", publicKeyText);
+            }
         }
 
         /// <summary>
-        /// Decrypts the data passed into it
+        /// Encrypts the data passed into it
         /// </summary>
         /// <returns></returns>
-        public static string Decrypt()
+        public static string Encrypt(string text)
         {
-            string ret = null;
-            throw new NotImplementedException();
-            return ret;
+            if (!File.Exists("key"))
+                return "Key not found!";
+
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(File.ReadAllText("key"));
+
+            byte[] unencrypted = (text);
+            byte[] output = rsa.Encrypt(unencrypted, true);
+
+            File.WriteAllBytes(key + ".enc", output);
+            return "File has been encrypted!";
+        }
+
+        public static string Decrypt(string key, string path)
+        {
+            if (!File.Exists(key))
+                return "Key not found!";
+            if (!File.Exists(path))
+                return "File not found";
+
+            RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
+            rsa.FromXmlString(File.ReadAllText(key));
+
+            byte[] gitbit = File.ReadAllBytes(path);
+
+            byte[] output = rsa.Decrypt(gitbit, true);
+
+            File.WriteAllBytes(path + ".dec", output);
+            return "File has been decrypted!";
         }
 
 
         #endregion Encryption
+        private static byte[] Convert_ByteArr(string text)
+        {
+            List<byte> ret = new List<byte>();
+            char[] chars = text.ToArray();
+
+            foreach (char a in chars)
+                ret.Add(Convert.ToByte(a));
+
+            return ret.ToArray();
+        }
 
         #region Hashing
         //https://www.c-sharpcorner.com/article/compute-sha256-hash-in-c-sharp/ ;; Minor modifications made
