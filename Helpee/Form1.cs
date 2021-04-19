@@ -23,8 +23,7 @@ namespace Helpee
         private Helpee_Connection connection;
         private TcpListener tcpListener;
 
-        //Handles sending the new image to the helper
-        private BackgroundWorker imagewkr = new BackgroundWorker();
+        private Timer tim = new Timer();
         public Bitmap screenshot { get; private set; }
         //What is displayed
         Graphics ScreenGraphics;
@@ -39,43 +38,40 @@ namespace Helpee
                 .Where(x => x.AddressFamily == AddressFamily.InterNetwork)
                 .FirstOrDefault().ToString();
 
-            imagewkr.DoWork += Imagewkr_DoWork;
+            tim.Interval = 3000;
+            tim.Tick += Tim_Tick;
         }
 
-        private void Imagewkr_DoWork(object sender, DoWorkEventArgs e)
+        private void Tim_Tick(object sender, EventArgs e)
         {
-            //MAIN LOOP LUL
-            while (true)
-            {
-                //Generate the size of the image
-                screenshot = new Bitmap(SystemInformation.VirtualScreen.Width, 
-                                        SystemInformation.VirtualScreen.Height, 
-                                        PixelFormat.Format32bppArgb);
-                //Generates the image
-                ScreenGraphics = Graphics.FromImage(screenshot);
-                //Copies screen
-                ScreenGraphics.CopyFromScreen(
-                    //Sets the size of the original Picture
-                    SystemInformation.VirtualScreen.X,
-                    SystemInformation.VirtualScreen.Y,
-                    //Sets the origin of the x/y of render body
-                    0, 0,
-                    //Sets the size of the render body
-                    SystemInformation.VirtualScreen.Size,
-                    CopyPixelOperation.SourceCopy
-                    );
+            //Generate the size of the image
+            screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
+                                    Screen.PrimaryScreen.Bounds.Height,
+                                    PixelFormat.Format32bppArgb);
+            //Generates the image
+            ScreenGraphics = Graphics.FromImage(screenshot);
+            //Copies screen
+            ScreenGraphics.CopyFromScreen(
+                //Sets the size of the original Picture
+                SystemInformation.VirtualScreen.X,
+                SystemInformation.VirtualScreen.Y,
+                //Sets the origin of the x/y of render body
+                0, 0,
+                //Sets the size of the render body
+                SystemInformation.VirtualScreen.Size,
+                CopyPixelOperation.SourceCopy
+                );
 
-                //Sets the picture box
-                PbScreenShare.Image = screenshot;
+            //Sets the picture box
+            PbScreenShare.Image = screenshot;
 
-                //Sends image to the helper
-                if (connection != null)
-                    connection.Send_To_Helper(PbScreenShare.Image);
-                //Additional workload simulation (not killing system by re-rendering the image asap)
-                System.Threading.Thread.Sleep(1500);
-                //Cleans up what is not in use (goes from gigabytes in seconds to a consistent >100MB process)
-                GC.Collect();
-            }
+            //Sends image to the helper
+            if (connection != null)
+                connection.Send_To_Helper(PbScreenShare.Image);
+            //Additional workload simulation (not killing system by re-rendering the image asap)
+            System.Threading.Thread.Sleep(1500);
+            //Cleans up what is not in use (goes from gigabytes in seconds to a consistent >100MB process)
+            GC.Collect();
         }
 
         private void BtnHost_Click(object sender, EventArgs e)
@@ -99,7 +95,8 @@ namespace Helpee
         private void Connection_NewClientConnected(Helpee_Connection conn)
         {
             MessageBox.Show("a Helper has connected!");
-            imagewkr.RunWorkerAsync();
+            tim.Start();
+            //imagewkr.RunWorkerAsync();
         }
 
         private void Connection_InputIncoming(User_Input input)
