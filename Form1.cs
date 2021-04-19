@@ -201,7 +201,7 @@ namespace FinalProj_Helper
         {
             File_Standard fs = new File_Standard
             {
-                File_Contents = General_Standards.Encrypt(TbChatMessage.Text),
+                Message = TbChatMessage.Text,
                 File_Name = "Chat_Message",
                 File_Ext = "MSG"
             };
@@ -236,7 +236,7 @@ namespace FinalProj_Helper
                     File.WriteAllBytes(FileR.File_Name + FileR.File_Ext, FileR.File_Contents);
             }
             else
-                LstChat.Items.Add(General_Standards.Decrypt(FileR.File_Contents));
+                LstChat.Items.Add(FileR.Message);
         }
 
         /// <summary>

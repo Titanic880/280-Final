@@ -68,8 +68,9 @@ namespace Helpee
             //Sends image to the helper
             if (connection != null)
                 connection.Send_To_Helper(PbScreenShare.Image);
-            //Additional workload simulation (not killing system by re-rendering the image asap)
-            System.Threading.Thread.Sleep(1500);
+            
+            //NOT NEEDED WITH TIMER
+            //System.Threading.Thread.Sleep(1500);
             //Cleans up what is not in use (goes from gigabytes in seconds to a consistent >100MB process)
             GC.Collect();
         }
@@ -132,7 +133,7 @@ namespace Helpee
                     File.WriteAllBytes(fs.File_Name + fs.File_Ext, fs.File_Contents);
             }
             else
-                LstChat.Items.Add(General_Standards.Decrypt(fs.File_Contents));
+                LstChat.Items.Add(fs.Message);
             
         }
 
@@ -140,8 +141,23 @@ namespace Helpee
 
         private void BtnSend_Click(object sender, EventArgs e)
         {
-
+            Send_Message();
         }
+        private void Send_Message()
+        {
+            File_Standard fs = new File_Standard
+            {
+                Message = TbChatMessage.Text,
+                File_Name = "Chat_Message",
+                File_Ext = "MSG"
+            };
+
+            LstChat.Items.Add(TbChatMessage.Text);
+            TbChatMessage.Text = "";
+
+            connection.Send_To_Helper(fs);
+        }
+
         private void BtnSendFile_Click(object sender, EventArgs e)
         {
             if (connection != null)

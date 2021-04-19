@@ -19,7 +19,7 @@ namespace Standards
 
         //Salt :)
         private const string SultyBoio = "AMNJLSKDJANDL:AKNDP{L:ADMA:ADS:OFIJ";
-
+        private const string key = "key.key";
 
         #region Encryption
         /// <summary>
@@ -48,11 +48,11 @@ namespace Standards
         /// <returns></returns>
         public static byte[] Encrypt(string text)
         {
-            if (!File.Exists("key"))
+            if (!File.Exists(key))
                 return default;
             //Builds the encryption service
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(File.ReadAllText("key"));
+            rsa.FromXmlString(File.ReadAllText(key));
 
             byte[] text_Bytes = Encoding.Default.GetBytes(text);
             return rsa.Encrypt(text_Bytes, true);
@@ -66,11 +66,11 @@ namespace Standards
         public static string Decrypt(byte[] text)
         {
             //Checks for the key
-            if (!File.Exists("key"))
+            if (!File.Exists(key))
                 return "Key not found!";
             //Builds the encryption service
             RSACryptoServiceProvider rsa = new RSACryptoServiceProvider();
-            rsa.FromXmlString(File.ReadAllText("key"));
+            rsa.FromXmlString(File.ReadAllText(key));
 
             return Encoding.Default.GetString(rsa.Decrypt(text, true));
         }

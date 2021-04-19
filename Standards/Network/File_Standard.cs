@@ -23,6 +23,10 @@ namespace Standards.Network
         /// </summary>
         public byte[] File_Contents { get; set; }
 
+        /// <summary>
+        /// REMOVE WHEN ENCRYPTION WORKS
+        /// </summary>
+        public string Message { get; set; }
         #region Overrides
         /// <summary>
         /// Returns the full file name (Name+Ext)
