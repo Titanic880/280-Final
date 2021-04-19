@@ -103,8 +103,8 @@ namespace FinalProj_Helper
                             Allowed_Control.Restart_Timer();
                         }
                         break;
-                    case Image _:
-                            
+                    case Image img:
+                        UpdatePicture(img);
                         break;
 
                         //UNIMPLEMENTED IDEA

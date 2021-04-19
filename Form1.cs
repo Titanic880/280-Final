@@ -246,7 +246,9 @@ namespace FinalProj_Helper
         {
             MessageBox.Show("Control has been revoked (this is automatic)");
         }
-        private void UpdatePicture(Image file) => PbScreenShare.Image = file;
+        private void UpdatePicture(Image file) => BeginInvoke(new MethodInvoker(() => UpdatePic(file)));
+        private void UpdatePic(Image img) => PbScreenShare.Image = img;
+
         #endregion Delegates
 
         private void BtnLogin_Click(object sender, EventArgs e)
@@ -259,6 +261,11 @@ namespace FinalProj_Helper
                 BtnLogin.Enabled = false;
                 BtnConnect.Enabled = true;
             }
+        }
+
+        private void BtnSend_Click(object sender, EventArgs e)
+        {
+            Send_Message();
         }
     }
 }

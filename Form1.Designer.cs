@@ -66,6 +66,7 @@ namespace FinalProj_Helper
             this.BtnSend.TabIndex = 1;
             this.BtnSend.Text = "Send Message";
             this.BtnSend.UseVisualStyleBackColor = true;
+            this.BtnSend.Click += new System.EventHandler(this.BtnSend_Click);
             // 
             // LstChat
             // 
