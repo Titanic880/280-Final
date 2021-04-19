@@ -14,7 +14,7 @@ namespace FinalProj_Helper
     public class Helper_Connection
     {
         private readonly string IPAddress;
-        public Control Allowed_Control { get; set; }
+        public User_Control Allowed_Control { get; set; }
 
         #region Delegates
 
@@ -80,7 +80,7 @@ namespace FinalProj_Helper
                         FileIncoming((File_Standard)o);
                         break;
                         //Assigns the Helpee Control and ties the delegate
-                    case Control c:
+                    case User_Control c:
                         //Checks for empty control
                         if(Allowed_Control == null)
                             Allowed_Control = c;
@@ -142,7 +142,7 @@ namespace FinalProj_Helper
         /// notifies the helper that the control has been revoked
         /// </summary>
         /// <param name="new_Control"></param>
-        private void Allowed_Control_ControlRevoke(Control new_Control)
+        private void Allowed_Control_ControlRevoke(User_Control new_Control)
         {
             //Sets the new control information
             Allowed_Control = new_Control;

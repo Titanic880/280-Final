@@ -25,6 +25,14 @@ namespace Helpee
 
         public event Connected NewClientConnected;
         public delegate void Connected(Helpee_Connection conn);
+
+        //Runs when a file/message is incoming
+        public event File_Recieved FileIncoming;
+        public delegate void File_Recieved(File_Standard File);
+
+        //Runs a user input from the helper
+        public event Recieved_Input InputIncoming;
+        public delegate void Recieved_Input(User_Input input);
         #endregion Delegates
 
         private readonly BackgroundWorker wkr = new BackgroundWorker();
@@ -92,17 +100,27 @@ namespace Helpee
             switch (Sort)
             {
                 //Incoming Files/Messages
-                case File_Standard _:
-
+                case File_Standard fs:
+                    FileIncoming(fs);
                     break;
                 //incoming user input (or request)
                 case User_Input UI:
-
+                    InputIncoming(UI);
                     break;
-
                 default:
                     break;
             }
+        }
+
+        internal void Send_To_Helper(object package)
+        {
+            //Checks if there might be a problem
+            //Depreciated?
+            if (package == null || C_writer == null)
+                return;
+
+            IFormatter stream = new BinaryFormatter();
+            stream.Serialize(C_writer.BaseStream, package);
         }
     }
 }

@@ -148,7 +148,7 @@
     <Compile Include="Network\File_Standard.cs" />
     <Compile Include="Network\User_Input.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="User\Control.cs" />
+    <Compile Include="User\User_Control.cs" />
     <Compile Include="User\User_Data.cs" />
   </ItemGroup>
   <ItemGroup>
