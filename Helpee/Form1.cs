@@ -197,11 +197,11 @@ namespace Helpee
 
         private void BtnAllow_Click(object sender, EventArgs e)
         {
-            User_Control cntrl = new User_Control
+            Control_Data cntrl = new Control_Data
             {
                 KeyBoard = CbKeyboard.Checked,
                 Mouse = CbMouse.Checked,
-                Timer = Convert.ToInt32(NUDTimer.Value),
+                Timer_Time = Convert.ToInt32(NUDTimer.Value),
                 Use_Timer = CbTimer.Checked
             };
 

@@ -80,10 +80,10 @@ namespace FinalProj_Helper
                         FileIncoming((File_Standard)o);
                         break;
                         //Assigns the Helpee Control and ties the delegate
-                    case User_Control c:
+                    case Control_Data c:
                         //Checks for empty control
                         if(Allowed_Control == null)
-                            Allowed_Control = c;
+                            Allowed_Control = new User_Control(c);
                         else
                         {
                             //instead of comparing we just check if they're true (Slightly faster?)
@@ -93,8 +93,8 @@ namespace FinalProj_Helper
                                 Allowed_Control.Mouse = true;
 
                             //Checks against the timers runtime
-                            if (Allowed_Control.Timer != c.Timer)
-                                Allowed_Control.Timer = c.Timer;
+                            if (Allowed_Control.Timer_Time != c.Timer_Time)
+                                Allowed_Control.Timer_Time = c.Timer_Time;
                         }
                         if (Allowed_Control.Use_Timer)
                         {

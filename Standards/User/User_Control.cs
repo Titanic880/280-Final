@@ -4,33 +4,10 @@ using System;
 namespace Standards.User
 {
     /// <summary>
-    /// Primary object that is passed from helpee to helper to determine if they are allowed to use certain features
-    /// (Heavily Intergrated as if checks)
+    /// The primary logic of the Control checks
     /// </summary>
-    [Serializable]
-    public class User_Control
+    public class User_Control : Control_Data
     {
-        #region Properties
-        /// <summary>
-        /// True == Control allowed ;; false == Control Blocked
-        /// </summary>
-        public bool KeyBoard { get; set; } = false;
-
-        /// <summary>
-        /// True == Control allowed ;; false == Control Blocked
-        /// </summary>
-        public bool Mouse { get; set; } = false;
-
-        /// <summary>
-        /// Determines if the timer is to be used
-        /// </summary>
-        public bool Use_Timer { get; set; } = true;
-        /// <summary>
-        /// How long the timer will allow the control before turning it off
-        /// </summary>
-        public int Timer { get; set; } = 60;
-        #endregion Properties
-
         #region Timer_Control
         /// <summary>
         /// Primary Timer object (using Timer)
@@ -72,17 +49,25 @@ namespace Standards.User
         /// </summary>
         public User_Control() { }
 
+        /// <summary>
+        /// Primary constructor that fills the data via base class
+        /// </summary>
+        /// <param name="d"></param>
+        public User_Control(Control_Data d):base(d)
+        {
+
+        }
         public User_Control(int Timer_Duration, bool Keyboard = true, bool Mouse = true, bool Use_Timer = true)
         {
             //Sets internal values
-            Timer = Timer_Duration;
+            Timer_Time = Timer_Duration;
             this.Use_Timer = Use_Timer;
             this.KeyBoard = Keyboard;
             this.Mouse = Mouse;
 
             //Configures the timer
             timer = new Timer();
-            timer.Interval += 100 * Timer;
+            timer.Interval += 100 * Timer_Time;
             timer.Tick += Timer_Tick;
 
         }
