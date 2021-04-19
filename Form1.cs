@@ -77,9 +77,9 @@ namespace FinalProj_Helper
                         MouseEventArgs args = (MouseEventArgs)e;
                         if (args.Button == MouseButtons.Left)
                             input.Click_Side = true;
-                        input.xRatio = (double)args.X / (double)PbScreenShare.Width;
-                        input.yRatio = (double)args.Y / (double)PbScreenShare.Height;
-
+                        input.xRatio = Convert.ToDouble(args.X) / Convert.ToDouble(PbScreenShare.Image.Width);
+                        input.yRatio = Convert.ToDouble(args.Y) / Convert.ToDouble(PbScreenShare.Image.Height);
+                        
                         H_connection.Send_To_Helpee(input);
                     }
                     else

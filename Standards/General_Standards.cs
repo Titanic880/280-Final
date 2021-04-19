@@ -4,6 +4,7 @@ using System.Text;
 using System.Linq;
 using System.IO;
 using System;
+using System.Windows.Forms;
 
 namespace Standards
 {
@@ -20,7 +21,7 @@ namespace Standards
         //Salt :)
         private const string SultyBoio = "AMNJLSKDJANDL:AKNDP{L:ADMA:ADS:OFIJ";
         private const string key = "key.key";
-
+        public static readonly Screen Current_Screen = Screen.AllScreens[0];
         #region Encryption
         /// <summary>
         /// Generates a pair of keys

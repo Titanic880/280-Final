@@ -20,7 +20,7 @@ namespace Helpee
 {
     public partial class Form1 : Form
     {
-        private Helpee_Connection connection;
+        private static Helpee_Connection connection;
         private TcpListener tcpListener;
 
         private Timer tim = new Timer();
@@ -45,20 +45,20 @@ namespace Helpee
         private void Tim_Tick(object sender, EventArgs e)
         {
             //Generate the size of the image
-            screenshot = new Bitmap(Screen.PrimaryScreen.Bounds.Width,
-                                    Screen.PrimaryScreen.Bounds.Height,
+            screenshot = new Bitmap(General_Standards.Current_Screen.Bounds.Width,
+                                    General_Standards.Current_Screen.Bounds.Height,
                                     PixelFormat.Format32bppArgb);
             //Generates the image
             ScreenGraphics = Graphics.FromImage(screenshot);
             //Copies screen
             ScreenGraphics.CopyFromScreen(
                 //Sets the size of the original Picture
-                SystemInformation.VirtualScreen.X,
-                SystemInformation.VirtualScreen.Y,
+                General_Standards.Current_Screen.Bounds.X,
+                General_Standards.Current_Screen.Bounds.Y,
                 //Sets the origin of the x/y of render body
                 0, 0,
                 //Sets the size of the render body
-                SystemInformation.VirtualScreen.Size,
+                Screen.PrimaryScreen.Bounds.Size,
                 CopyPixelOperation.SourceCopy
                 );
 
@@ -105,15 +105,15 @@ namespace Helpee
             //Checks if the user is requesting control
             if (!input.Request)
             {   //Checks if the input is mouse or keyboard action
-                if (input.Input_Type)
+                if (!input.Input_Type)
                 {
                     AutoItX.Send(input.Key_Pressed.ToString());
                 }
                 else
                 {
                     //Calculates where to click
-                    int xClick = (int)(SystemInformation.VirtualScreen.Width * input.xRatio);
-                    int yClick = (int)(SystemInformation.VirtualScreen.Height * input.yRatio);
+                    int xClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Width * input.xRatio);
+                    int yClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Height * input.yRatio);
                     //Clicks with left or right click
                     if (input.Click_Side)
                         AutoItX.MouseClick("LEFT", xClick, yClick);

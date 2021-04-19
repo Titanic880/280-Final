@@ -47,7 +47,13 @@ namespace Standards.User
         /// <summary>
         /// Loads Control with default settings
         /// </summary>
-        public User_Control() { }
+        public User_Control() 
+        {
+            //Configures the timer
+            timer = new Timer();
+            timer.Interval += 100 * Timer_Time;
+            timer.Tick += Timer_Tick;
+        }
 
         /// <summary>
         /// Primary constructor that fills the data via base class
@@ -55,7 +61,10 @@ namespace Standards.User
         /// <param name="d"></param>
         public User_Control(Control_Data d):base(d)
         {
-
+            //Configures the timer
+            timer = new Timer();
+            timer.Interval += 100 * Timer_Time;
+            timer.Tick += Timer_Tick;
         }
         public User_Control(int Timer_Duration, bool Keyboard = true, bool Mouse = true, bool Use_Timer = true)
         {
