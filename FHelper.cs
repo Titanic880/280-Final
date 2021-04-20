@@ -242,9 +242,9 @@ namespace FinalProj_Helper
         /// <summary>
         /// Alerts the helper that the control has been revoked
         /// </summary>
-        private void Revoked_Control()
+        private void Revoked_Control(string Message)
         {
-            MessageBox.Show("Control has been revoked (this is automatic)");
+            MessageBox.Show(Message);
         }
         private void UpdatePicture(Image file) => BeginInvoke(new MethodInvoker(() => UpdatePic(file)));
         private void UpdatePic(Image img) => PbScreenShare.Image = img;

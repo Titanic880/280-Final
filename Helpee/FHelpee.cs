@@ -37,7 +37,8 @@ namespace Helpee
                 .AddressList
                 .Where(x => x.AddressFamily == AddressFamily.InterNetwork)
                 .FirstOrDefault().ToString();
-            Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont");
+            if(!Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont"))
+                MessageBox.Show("Login Not Working.");
 
             tim.Interval = 3000;
             tim.Tick += Tim_Tick;
@@ -193,7 +194,8 @@ namespace Helpee
 
         private void CbTimer_CheckedChanged(object sender, EventArgs e)
         {
-            MessageBox.Show("Please be warned, the helper will have unconditional control of the given attributes without a timer limiting them!");
+            if(!CbTimer.Checked)
+                MessageBox.Show("Please be warned, the helper will have unconditional control of the given attributes without a timer limiting them!");
         }
 
         private void BtnAllow_Click(object sender, EventArgs e)

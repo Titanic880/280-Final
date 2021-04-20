@@ -20,7 +20,7 @@ namespace FinalProj_Helper
 
         //Runs when control is removed from the helper
         public event ControlRevoked Rekoved_Control;
-        public delegate void ControlRevoked();
+        public delegate void ControlRevoked(string Message);
 
         //Runs when a file/message is incoming
         public event File_Recieved FileIncoming;
@@ -102,6 +102,7 @@ namespace FinalProj_Helper
                             Allowed_Control.TimerComplete += Allowed_Control_ControlRevoke;
                             Allowed_Control.Restart_Timer();
                         }
+                        Rekoved_Control("You have been given control!");
                         break;
                     case Image img:
                         UpdatePicture(img);
@@ -147,7 +148,7 @@ namespace FinalProj_Helper
             //Sets the new control information
             Allowed_Control = new_Control;
             //passes it up to the form
-            Rekoved_Control();
+            Rekoved_Control("Control has been revoked (this is automatic)");
         }
     }
 }
