@@ -1,7 +1,7 @@
 ﻿
 namespace Helpee
 {
-    partial class Form1
+    partial class FHelpee
     {
         /// <summary>
         /// Required designer variable.
@@ -259,7 +259,7 @@ namespace Helpee
             this.CbMouse.Text = "Allow Mouse Control";
             this.CbMouse.UseVisualStyleBackColor = true;
             // 
-            // Form1
+            // FHelpee
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -284,8 +284,8 @@ namespace Helpee
             this.Controls.Add(this.LstChat);
             this.Controls.Add(this.BtnSend);
             this.Controls.Add(this.PbScreenShare);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FHelpee";
+            this.Text = "Tech Support Helper";
             ((System.ComponentModel.ISupportInitialize)(this.PbScreenShare)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDTimer)).EndInit();
             this.ResumeLayout(false);

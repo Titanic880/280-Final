@@ -18,7 +18,7 @@ using System.Windows.Forms;
 
 namespace Helpee
 {
-    public partial class Form1 : Form
+    public partial class FHelpee : Form
     {
         private static Helpee_Connection connection;
         private TcpListener tcpListener;
@@ -28,7 +28,7 @@ namespace Helpee
         //What is displayed
         Graphics ScreenGraphics;
 
-        public Form1()
+        public FHelpee()
         {
             InitializeComponent();
             //Gets the local IP to host on
@@ -37,6 +37,7 @@ namespace Helpee
                 .AddressList
                 .Where(x => x.AddressFamily == AddressFamily.InterNetwork)
                 .FirstOrDefault().ToString();
+            Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont");
 
             tim.Interval = 3000;
             tim.Tick += Tim_Tick;

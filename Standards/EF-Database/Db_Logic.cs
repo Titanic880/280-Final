@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using Standards.User;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -15,25 +16,68 @@ namespace Standards.EF_Database
             return Sql_Functions.SetConn(Connection_String);
         }
 
-        public static bool Login(string UserName, string Password)
+        public static User_Data Login(User_Data user_)
         {
             if (Sql_Functions.Connected)
             {
-                Sql_Functions.RunScalar($"SELECT * FROM USERS WHERE UserName = '{UserName}' and Password = '{Password}'");
+                if (Sql_Functions.Check_Table("USERS"))
+                {
+                    //Tests the Table for Data
+                    string Q = "SELECT * FROM USERS WHERE UserName = '@U_NAME' and Password = '@PASS'";
+                    SqlCommand cmdTest = new SqlCommand(Q, Sql_Functions.Sql);
+                    cmdTest.Parameters.AddWithValue("@U_NAME", user_.UserName);
+                    cmdTest.Parameters.AddWithValue("@PASS", user_.Password);
+                    DataTable o = Sql_Functions.Query(cmdTest.CommandText);
+                    if (o != null)
+                    {
+                        User_Data ret = new User_Data
+                        {
+                            Id = (int)o.Rows[0].ItemArray[0],
+                            UserName = o.Rows[0].ItemArray[1].ToString(),
+                            F_Name = o.Rows[0].ItemArray[2].ToString(),
+                            Password = o.Rows[0].ItemArray[3].ToString()
+                        };
+                        return ret;
+                    }
+                }
             }
-
-            throw new NotImplementedException();
+            return default;
+            
         }
 
-        public static void Register(string UserName, string Password)
+        public static bool Register(User_Data user_)
         {
             if (Sql_Functions.Connected)
             {
+                if (Sql_Functions.Check_Table("USERS"))
+                {
+                    //Tests the Table for Data
+                    string Q = "SELECT * FROM USERS WHERE UserName = '@U_NAME' and Password = '@PASS'";
+                    SqlCommand cmdTest = new SqlCommand(Q, Sql_Functions.Sql);
+                    cmdTest.Parameters.AddWithValue("@U_NAME", user_.UserName);
+                    cmdTest.Parameters.AddWithValue("@PASS", user_.Password);
 
+                    //Checks to see if anything is returned
+                    if (Sql_Functions.RunScalar(cmdTest) == null)
+                    {
+                        //Inserts the user
+                        string Query = "INSERT INTO [USERS] (UserName, F_Name, Password) VALUES (@U_Name, @FNAME, @PASS)";
+                        SqlCommand cmd = new SqlCommand(Query, Sql_Functions.Sql);
+                        cmd.Parameters.AddWithValue("@U_Name", user_.UserName);
+                        cmd.Parameters.AddWithValue("@U_Name", user_.F_Name);
+                        cmd.Parameters.AddWithValue("@U_Name", user_.Password);
+                        Sql_Functions.RunNonQuery(cmd);
+                        return true;
+                    }
+                }
             }
+            return false;
         }
     }
 
+    /// <summary>
+    /// This is from an Internal resource of mine (Hasn't been pulled out this semester!)
+    /// </summary>
     internal static class Sql_Functions
     {
         /// <summary>
@@ -119,7 +163,7 @@ namespace Standards.EF_Database
         /// <returns></returns>
         public static bool Check_Table(string TableName)
         {
-            string Query = "Select * From " + TableName;
+            string Query = $"Select * From {TableName}";
 
             try
             {

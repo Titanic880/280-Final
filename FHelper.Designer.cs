@@ -1,7 +1,7 @@
 ﻿
 namespace FinalProj_Helper
 {
-    partial class Form1
+    partial class FHelper
     {
         /// <summary>
         /// Required designer variable.
@@ -178,7 +178,7 @@ namespace FinalProj_Helper
             this.TbIP.Size = new System.Drawing.Size(121, 20);
             this.TbIP.TabIndex = 15;
             // 
-            // Form1
+            // FHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -197,8 +197,8 @@ namespace FinalProj_Helper
             this.Controls.Add(this.LstChat);
             this.Controls.Add(this.BtnSend);
             this.Controls.Add(this.PbScreenShare);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "FHelper";
+            this.Text = "Tech Support";
             ((System.ComponentModel.ISupportInitialize)(this.PbScreenShare)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

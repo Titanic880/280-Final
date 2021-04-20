@@ -15,7 +15,7 @@ using System.Windows.Forms;
 
 namespace FinalProj_Helper
 {
-    public partial class Form1 : Form
+    public partial class FHelper : Form
     {
         private Helper_Connection H_connection;
         public static User_Data User { get; set; }
@@ -24,13 +24,13 @@ namespace FinalProj_Helper
         private readonly List<string> messages = new List<string>();
         private int messagesPOS = 0;
 
-        public Form1()
+        public FHelper()
         {
             InitializeComponent();
             //Sets up Network IP List
             TbIP.Text = Dns.GetHostEntry(SystemInformation.ComputerName).AddressList
                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString();
-
+            Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont");
             KeyPreview = true;
 
             messages.Add("");
