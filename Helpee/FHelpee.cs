@@ -24,6 +24,7 @@ namespace Helpee
         private TcpListener tcpListener;
 
         private Timer tim = new Timer();
+        private Timer timee = new Timer();
         public Bitmap screenshot { get; private set; }
         //What is displayed
         Graphics ScreenGraphics;
@@ -42,6 +43,13 @@ namespace Helpee
 
             tim.Interval = 3000;
             tim.Tick += Tim_Tick;
+            timee.Tick += Timee_Tick;
+        }
+
+        private void Timee_Tick(object sender, EventArgs e)
+        {
+            MessageBox.Show("Control has been revoked from the helper");
+            timee.Stop();
         }
 
         private void Tim_Tick(object sender, EventArgs e)
@@ -209,6 +217,14 @@ namespace Helpee
             };
 
             connection.Send_To_Helper(cntrl);
+
+            //Checks to see if using timer, sets a local timer to alert the helpee that it has timed out
+            if (CbTimer.Checked)
+            {
+                timee.Interval = Convert.ToInt32(NUDTimer.Value);
+                timee.Start();
+            }
+
         }
     }
 }
