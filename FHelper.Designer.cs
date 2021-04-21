@@ -43,6 +43,7 @@ namespace FinalProj_Helper
             this.LblUsername = new System.Windows.Forms.Label();
             this.MTbPassword = new System.Windows.Forms.MaskedTextBox();
             this.TbIP = new System.Windows.Forms.TextBox();
+            this.BtnRegister = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PbScreenShare)).BeginInit();
             this.SuspendLayout();
             // 
@@ -105,7 +106,7 @@ namespace FinalProj_Helper
             // 
             // BtnConnect
             // 
-            this.BtnConnect.Location = new System.Drawing.Point(5, 163);
+            this.BtnConnect.Location = new System.Drawing.Point(5, 189);
             this.BtnConnect.Name = "BtnConnect";
             this.BtnConnect.Size = new System.Drawing.Size(121, 23);
             this.BtnConnect.TabIndex = 7;
@@ -121,13 +122,12 @@ namespace FinalProj_Helper
             this.BtnLogin.TabIndex = 8;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.UseVisualStyleBackColor = true;
-            this.BtnLogin.Visible = false;
             this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
             // 
             // LbliP
             // 
             this.LbliP.AutoSize = true;
-            this.LbliP.Location = new System.Drawing.Point(2, 120);
+            this.LbliP.Location = new System.Drawing.Point(2, 146);
             this.LbliP.Name = "LbliP";
             this.LbliP.Size = new System.Drawing.Size(46, 13);
             this.LbliP.TabIndex = 9;
@@ -139,7 +139,6 @@ namespace FinalProj_Helper
             this.TbUsername.Name = "TbUsername";
             this.TbUsername.Size = new System.Drawing.Size(121, 20);
             this.TbUsername.TabIndex = 10;
-            this.TbUsername.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PbScreenShare_PreviewKeyDown);
             // 
             // LblPassword
             // 
@@ -149,7 +148,6 @@ namespace FinalProj_Helper
             this.LblPassword.Size = new System.Drawing.Size(53, 13);
             this.LblPassword.TabIndex = 12;
             this.LblPassword.Text = "Password";
-            this.LblPassword.Visible = false;
             // 
             // LblUsername
             // 
@@ -159,7 +157,6 @@ namespace FinalProj_Helper
             this.LblUsername.Size = new System.Drawing.Size(55, 13);
             this.LblUsername.TabIndex = 13;
             this.LblUsername.Text = "Username";
-            this.LblUsername.Visible = false;
             // 
             // MTbPassword
             // 
@@ -169,20 +166,30 @@ namespace FinalProj_Helper
             this.MTbPassword.Size = new System.Drawing.Size(121, 20);
             this.MTbPassword.TabIndex = 14;
             this.MTbPassword.UseSystemPasswordChar = true;
-            this.MTbPassword.Visible = false;
             // 
             // TbIP
             // 
-            this.TbIP.Location = new System.Drawing.Point(5, 137);
+            this.TbIP.Location = new System.Drawing.Point(5, 163);
             this.TbIP.Name = "TbIP";
             this.TbIP.Size = new System.Drawing.Size(121, 20);
             this.TbIP.TabIndex = 15;
+            // 
+            // BtnRegister
+            // 
+            this.BtnRegister.Location = new System.Drawing.Point(5, 120);
+            this.BtnRegister.Name = "BtnRegister";
+            this.BtnRegister.Size = new System.Drawing.Size(121, 23);
+            this.BtnRegister.TabIndex = 16;
+            this.BtnRegister.Text = "Register";
+            this.BtnRegister.UseVisualStyleBackColor = true;
+            this.BtnRegister.Click += new System.EventHandler(this.BtnRegister_Click);
             // 
             // FHelper
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.BtnRegister);
             this.Controls.Add(this.TbIP);
             this.Controls.Add(this.MTbPassword);
             this.Controls.Add(this.LblUsername);
@@ -221,6 +228,7 @@ namespace FinalProj_Helper
         private System.Windows.Forms.Label LblUsername;
         private System.Windows.Forms.MaskedTextBox MTbPassword;
         private System.Windows.Forms.TextBox TbIP;
+        private System.Windows.Forms.Button BtnRegister;
     }
 }
 
