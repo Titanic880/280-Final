@@ -23,11 +23,15 @@ namespace Helpee
         private static Helpee_Connection connection;
         private TcpListener tcpListener;
 
-        private Timer tim = new Timer();
-        private Timer timee = new Timer();
-        public Bitmap screenshot { get; private set; }
+        private readonly Timer tim = new Timer();
+        private readonly Timer timee = new Timer();
+        public Bitmap Screenshot { get; private set; }
         //What is displayed
         Graphics ScreenGraphics;
+
+        //Message history system
+        private readonly List<string> messages = new List<string>();
+        private int messagesPOS = 0;
 
         public FHelpee()
         {
@@ -49,17 +53,18 @@ namespace Helpee
         private void Timee_Tick(object sender, EventArgs e)
         {
             MessageBox.Show("Control has been revoked from the helper");
+            BtnAllow.Enabled = true;
             timee.Stop();
         }
 
         private void Tim_Tick(object sender, EventArgs e)
         {
             //Generate the size of the image
-            screenshot = new Bitmap(General_Standards.Current_Screen.Bounds.Width,
+            Screenshot = new Bitmap(General_Standards.Current_Screen.Bounds.Width,
                                     General_Standards.Current_Screen.Bounds.Height,
                                     PixelFormat.Format32bppArgb);
             //Generates the image
-            ScreenGraphics = Graphics.FromImage(screenshot);
+            ScreenGraphics = Graphics.FromImage(Screenshot);
             //Copies screen
             ScreenGraphics.CopyFromScreen(
                 //Sets the size of the original Picture
@@ -73,7 +78,7 @@ namespace Helpee
                 );
 
             //Sets the picture box
-            PbScreenShare.Image = screenshot;
+            PbScreenShare.Image = Screenshot;
 
             //Sends image to the helper
             if (connection != null)
@@ -218,11 +223,63 @@ namespace Helpee
 
             connection.Send_To_Helper(cntrl);
 
+            
             //Checks to see if using timer, sets a local timer to alert the helpee that it has timed out
             if (CbTimer.Checked)
             {
+                BtnAllow.Enabled = false;
                 timee.Interval = Convert.ToInt32(NUDTimer.Value);
                 timee.Start();
+            }
+
+        }
+
+        private void TbChatMessage_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+
+            if (messagesPOS < 0) //Loops to top
+                messagesPOS = messages.Count;
+            else if (messagesPOS > messages.Count) //Loops to bottom
+                messagesPOS = -1;
+
+            //Switch of all used keys
+            switch (e.KeyCode)
+            {
+                //Cycles to newer message
+                case Keys.Down:
+                    messagesPOS++;
+
+                    if (messagesPOS < 0) //Loops to top
+                        messagesPOS = messages.Count - 1;
+                    else if (messagesPOS >= messages.Count) //Loops to bottom
+                        messagesPOS = 0;
+
+                    if (messages[messagesPOS] == null)
+                        return;
+                    else
+                        TbChatMessage.Text = messages[messagesPOS];
+                    break;
+                //Cycles to older message
+                case Keys.Up:
+                    messagesPOS--;
+
+                    if (messagesPOS < 0) //Loops to top
+                        messagesPOS = messages.Count - 1;
+                    else if (messagesPOS > messages.Count) //Loops to bottom
+                        messagesPOS = 0;
+
+                    if (messages[messagesPOS] == null)
+                        return;
+                    else
+                        TbChatMessage.Text = messages[messagesPOS];
+                    break;
+
+                //Sends a message if enter is pressed
+                case Keys.Enter:
+                    Send_Message();
+                    break;
+                default:
+                    break;
             }
 
         }

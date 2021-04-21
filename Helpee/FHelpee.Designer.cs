@@ -143,6 +143,7 @@ namespace Helpee
             this.TbChatMessage.Name = "TbChatMessage";
             this.TbChatMessage.Size = new System.Drawing.Size(286, 20);
             this.TbChatMessage.TabIndex = 20;
+            this.TbChatMessage.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TbChatMessage_PreviewKeyDown);
             // 
             // LblChat
             // 
