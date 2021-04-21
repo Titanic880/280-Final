@@ -61,13 +61,12 @@ namespace Standards.EF_Database
                     if (Sql_Functions.RunScalar(cmdTest) == null)
                     {
                         //Inserts the user
-                        string Query = "INSERT INTO [USERS] (UserName, F_Name, Password) VALUES (@U_Name, @FNAME, @PASS)";
+                        string Query = "INSERT INTO [USERS] (UserName, Password) VALUES (@U_Name, @PASS)";
                         SqlCommand cmd = new SqlCommand(Query, Sql_Functions.Sql);
                         cmd.Parameters.AddWithValue("@U_Name", user_.UserName);
-                        cmd.Parameters.AddWithValue("@U_Name", user_.F_Name);
-                        cmd.Parameters.AddWithValue("@U_Name", user_.Password);
-                        Sql_Functions.RunNonQuery(cmd);
-                        return true;
+                        //cmd.Parameters.AddWithValue("@FNAME", user_.F_Name);
+                        cmd.Parameters.AddWithValue("@PASS", user_.Password);
+                        return Sql_Functions.RunNonQuery(cmd);
                     }
                 }
             }
