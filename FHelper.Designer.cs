@@ -64,7 +64,7 @@ namespace FinalProj_Helper
             this.BtnSend.Location = new System.Drawing.Point(5, 360);
             this.BtnSend.Name = "BtnSend";
             this.BtnSend.Size = new System.Drawing.Size(140, 23);
-            this.BtnSend.TabIndex = 1;
+            this.BtnSend.TabIndex = 8;
             this.BtnSend.Text = "Send Message";
             this.BtnSend.UseVisualStyleBackColor = true;
             this.BtnSend.Click += new System.EventHandler(this.BtnSend_Click);
@@ -75,7 +75,7 @@ namespace FinalProj_Helper
             this.LstChat.Location = new System.Drawing.Point(5, 233);
             this.LstChat.Name = "LstChat";
             this.LstChat.Size = new System.Drawing.Size(286, 95);
-            this.LstChat.TabIndex = 2;
+            this.LstChat.TabIndex = 6;
             // 
             // LblChat
             // 
@@ -91,7 +91,7 @@ namespace FinalProj_Helper
             this.TbChatMessage.Location = new System.Drawing.Point(5, 334);
             this.TbChatMessage.Name = "TbChatMessage";
             this.TbChatMessage.Size = new System.Drawing.Size(286, 20);
-            this.TbChatMessage.TabIndex = 4;
+            this.TbChatMessage.TabIndex = 7;
             this.TbChatMessage.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TbChatMessage_PreviewKeyDown);
             // 
             // BtnSendFile
@@ -99,7 +99,7 @@ namespace FinalProj_Helper
             this.BtnSendFile.Location = new System.Drawing.Point(151, 360);
             this.BtnSendFile.Name = "BtnSendFile";
             this.BtnSendFile.Size = new System.Drawing.Size(140, 23);
-            this.BtnSendFile.TabIndex = 5;
+            this.BtnSendFile.TabIndex = 9;
             this.BtnSendFile.Text = "Send File";
             this.BtnSendFile.UseVisualStyleBackColor = true;
             this.BtnSendFile.Click += new System.EventHandler(this.BtnSendFile_Click);
@@ -109,7 +109,7 @@ namespace FinalProj_Helper
             this.BtnConnect.Location = new System.Drawing.Point(5, 189);
             this.BtnConnect.Name = "BtnConnect";
             this.BtnConnect.Size = new System.Drawing.Size(121, 23);
-            this.BtnConnect.TabIndex = 7;
+            this.BtnConnect.TabIndex = 5;
             this.BtnConnect.Text = "Connect to User";
             this.BtnConnect.UseVisualStyleBackColor = true;
             this.BtnConnect.Click += new System.EventHandler(this.BtnConnect_Click);
@@ -119,7 +119,7 @@ namespace FinalProj_Helper
             this.BtnLogin.Location = new System.Drawing.Point(5, 91);
             this.BtnLogin.Name = "BtnLogin";
             this.BtnLogin.Size = new System.Drawing.Size(121, 23);
-            this.BtnLogin.TabIndex = 8;
+            this.BtnLogin.TabIndex = 2;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.UseVisualStyleBackColor = true;
             this.BtnLogin.Click += new System.EventHandler(this.BtnLogin_Click);
@@ -138,7 +138,7 @@ namespace FinalProj_Helper
             this.TbUsername.Location = new System.Drawing.Point(5, 25);
             this.TbUsername.Name = "TbUsername";
             this.TbUsername.Size = new System.Drawing.Size(121, 20);
-            this.TbUsername.TabIndex = 10;
+            this.TbUsername.TabIndex = 0;
             // 
             // LblPassword
             // 
@@ -164,7 +164,7 @@ namespace FinalProj_Helper
             this.MTbPassword.Name = "MTbPassword";
             this.MTbPassword.PasswordChar = '*';
             this.MTbPassword.Size = new System.Drawing.Size(121, 20);
-            this.MTbPassword.TabIndex = 14;
+            this.MTbPassword.TabIndex = 1;
             this.MTbPassword.UseSystemPasswordChar = true;
             // 
             // TbIP
@@ -172,14 +172,14 @@ namespace FinalProj_Helper
             this.TbIP.Location = new System.Drawing.Point(5, 163);
             this.TbIP.Name = "TbIP";
             this.TbIP.Size = new System.Drawing.Size(121, 20);
-            this.TbIP.TabIndex = 15;
+            this.TbIP.TabIndex = 4;
             // 
             // BtnRegister
             // 
             this.BtnRegister.Location = new System.Drawing.Point(5, 120);
             this.BtnRegister.Name = "BtnRegister";
             this.BtnRegister.Size = new System.Drawing.Size(121, 23);
-            this.BtnRegister.TabIndex = 16;
+            this.BtnRegister.TabIndex = 3;
             this.BtnRegister.Text = "Register";
             this.BtnRegister.UseVisualStyleBackColor = true;
             this.BtnRegister.Click += new System.EventHandler(this.BtnRegister_Click);

@@ -58,7 +58,7 @@ namespace Helpee
             this.TbIP.Location = new System.Drawing.Point(4, 137);
             this.TbIP.Name = "TbIP";
             this.TbIP.Size = new System.Drawing.Size(121, 20);
-            this.TbIP.TabIndex = 29;
+            this.TbIP.TabIndex = 3;
             this.TbIP.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // MTbPassword
@@ -67,7 +67,7 @@ namespace Helpee
             this.MTbPassword.Name = "MTbPassword";
             this.MTbPassword.PasswordChar = '*';
             this.MTbPassword.Size = new System.Drawing.Size(121, 20);
-            this.MTbPassword.TabIndex = 28;
+            this.MTbPassword.TabIndex = 1;
             this.MTbPassword.UseSystemPasswordChar = true;
             this.MTbPassword.Visible = false;
             // 
@@ -96,7 +96,7 @@ namespace Helpee
             this.TbUsername.Location = new System.Drawing.Point(4, 25);
             this.TbUsername.Name = "TbUsername";
             this.TbUsername.Size = new System.Drawing.Size(121, 20);
-            this.TbUsername.TabIndex = 25;
+            this.TbUsername.TabIndex = 0;
             this.TbUsername.Visible = false;
             // 
             // LbliP
@@ -114,7 +114,7 @@ namespace Helpee
             this.BtnLogin.Location = new System.Drawing.Point(4, 91);
             this.BtnLogin.Name = "BtnLogin";
             this.BtnLogin.Size = new System.Drawing.Size(121, 23);
-            this.BtnLogin.TabIndex = 23;
+            this.BtnLogin.TabIndex = 2;
             this.BtnLogin.Text = "Login";
             this.BtnLogin.UseVisualStyleBackColor = true;
             this.BtnLogin.Visible = false;
@@ -124,7 +124,7 @@ namespace Helpee
             this.BtnHost.Location = new System.Drawing.Point(4, 163);
             this.BtnHost.Name = "BtnHost";
             this.BtnHost.Size = new System.Drawing.Size(121, 23);
-            this.BtnHost.TabIndex = 22;
+            this.BtnHost.TabIndex = 4;
             this.BtnHost.Text = "Host";
             this.BtnHost.UseVisualStyleBackColor = true;
             this.BtnHost.Click += new System.EventHandler(this.BtnHost_Click);
@@ -135,7 +135,7 @@ namespace Helpee
             this.BtnSendFile.Location = new System.Drawing.Point(150, 360);
             this.BtnSendFile.Name = "BtnSendFile";
             this.BtnSendFile.Size = new System.Drawing.Size(140, 23);
-            this.BtnSendFile.TabIndex = 21;
+            this.BtnSendFile.TabIndex = 8;
             this.BtnSendFile.Text = "Send File";
             this.BtnSendFile.UseVisualStyleBackColor = true;
             this.BtnSendFile.Click += new System.EventHandler(this.BtnSendFile_Click);
@@ -146,7 +146,7 @@ namespace Helpee
             this.TbChatMessage.Location = new System.Drawing.Point(4, 334);
             this.TbChatMessage.Name = "TbChatMessage";
             this.TbChatMessage.Size = new System.Drawing.Size(286, 20);
-            this.TbChatMessage.TabIndex = 20;
+            this.TbChatMessage.TabIndex = 6;
             this.TbChatMessage.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.TbChatMessage_PreviewKeyDown);
             // 
             // LblChat
@@ -164,7 +164,7 @@ namespace Helpee
             this.LstChat.Location = new System.Drawing.Point(4, 233);
             this.LstChat.Name = "LstChat";
             this.LstChat.Size = new System.Drawing.Size(286, 95);
-            this.LstChat.TabIndex = 18;
+            this.LstChat.TabIndex = 5;
             this.LstChat.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // BtnSend
@@ -172,7 +172,7 @@ namespace Helpee
             this.BtnSend.Location = new System.Drawing.Point(4, 360);
             this.BtnSend.Name = "BtnSend";
             this.BtnSend.Size = new System.Drawing.Size(140, 23);
-            this.BtnSend.TabIndex = 17;
+            this.BtnSend.TabIndex = 7;
             this.BtnSend.Text = "Send Message";
             this.BtnSend.UseVisualStyleBackColor = true;
             this.BtnSend.Click += new System.EventHandler(this.BtnSend_Click);
@@ -194,7 +194,7 @@ namespace Helpee
             this.BtnAllow.Location = new System.Drawing.Point(150, 134);
             this.BtnAllow.Name = "BtnAllow";
             this.BtnAllow.Size = new System.Drawing.Size(140, 23);
-            this.BtnAllow.TabIndex = 31;
+            this.BtnAllow.TabIndex = 14;
             this.BtnAllow.Text = "Allow Control";
             this.BtnAllow.UseVisualStyleBackColor = true;
             this.BtnAllow.Click += new System.EventHandler(this.BtnAllow_Click);
@@ -208,7 +208,7 @@ namespace Helpee
             this.CbTimer.Location = new System.Drawing.Point(150, 67);
             this.CbTimer.Name = "CbTimer";
             this.CbTimer.Size = new System.Drawing.Size(117, 17);
-            this.CbTimer.TabIndex = 32;
+            this.CbTimer.TabIndex = 11;
             this.CbTimer.Text = "Use Auto Timeout?";
             this.CbTimer.UseVisualStyleBackColor = true;
             this.CbTimer.CheckedChanged += new System.EventHandler(this.CbTimer_CheckedChanged);
@@ -229,7 +229,7 @@ namespace Helpee
             0});
             this.NUDTimer.Name = "NUDTimer";
             this.NUDTimer.Size = new System.Drawing.Size(56, 20);
-            this.NUDTimer.TabIndex = 33;
+            this.NUDTimer.TabIndex = 10;
             this.NUDTimer.Value = new decimal(new int[] {
             60,
             0,
@@ -255,7 +255,7 @@ namespace Helpee
             this.CbKeyboard.Location = new System.Drawing.Point(150, 88);
             this.CbKeyboard.Name = "CbKeyboard";
             this.CbKeyboard.Size = new System.Drawing.Size(135, 17);
-            this.CbKeyboard.TabIndex = 35;
+            this.CbKeyboard.TabIndex = 12;
             this.CbKeyboard.Text = "Allow Keyboard Control";
             this.CbKeyboard.UseVisualStyleBackColor = true;
             this.CbKeyboard.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
@@ -268,7 +268,7 @@ namespace Helpee
             this.CbMouse.Location = new System.Drawing.Point(150, 111);
             this.CbMouse.Name = "CbMouse";
             this.CbMouse.Size = new System.Drawing.Size(122, 17);
-            this.CbMouse.TabIndex = 36;
+            this.CbMouse.TabIndex = 13;
             this.CbMouse.Text = "Allow Mouse Control";
             this.CbMouse.UseVisualStyleBackColor = true;
             this.CbMouse.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
