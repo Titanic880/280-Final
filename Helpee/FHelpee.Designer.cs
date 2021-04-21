@@ -59,6 +59,7 @@ namespace Helpee
             this.TbIP.Name = "TbIP";
             this.TbIP.Size = new System.Drawing.Size(121, 20);
             this.TbIP.TabIndex = 29;
+            this.TbIP.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // MTbPassword
             // 
@@ -106,6 +107,7 @@ namespace Helpee
             this.LbliP.Size = new System.Drawing.Size(46, 13);
             this.LbliP.TabIndex = 24;
             this.LbliP.Text = "Users Ip";
+            this.LbliP.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // BtnLogin
             // 
@@ -126,6 +128,7 @@ namespace Helpee
             this.BtnHost.Text = "Host";
             this.BtnHost.UseVisualStyleBackColor = true;
             this.BtnHost.Click += new System.EventHandler(this.BtnHost_Click);
+            this.BtnHost.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // BtnSendFile
             // 
@@ -136,6 +139,7 @@ namespace Helpee
             this.BtnSendFile.Text = "Send File";
             this.BtnSendFile.UseVisualStyleBackColor = true;
             this.BtnSendFile.Click += new System.EventHandler(this.BtnSendFile_Click);
+            this.BtnSendFile.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // TbChatMessage
             // 
@@ -161,6 +165,7 @@ namespace Helpee
             this.LstChat.Name = "LstChat";
             this.LstChat.Size = new System.Drawing.Size(286, 95);
             this.LstChat.TabIndex = 18;
+            this.LstChat.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // BtnSend
             // 
@@ -171,6 +176,7 @@ namespace Helpee
             this.BtnSend.Text = "Send Message";
             this.BtnSend.UseVisualStyleBackColor = true;
             this.BtnSend.Click += new System.EventHandler(this.BtnSend_Click);
+            this.BtnSend.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // PbScreenShare
             // 
@@ -181,6 +187,7 @@ namespace Helpee
             this.PbScreenShare.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.PbScreenShare.TabIndex = 16;
             this.PbScreenShare.TabStop = false;
+            this.PbScreenShare.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // BtnAllow
             // 
@@ -191,6 +198,7 @@ namespace Helpee
             this.BtnAllow.Text = "Allow Control";
             this.BtnAllow.UseVisualStyleBackColor = true;
             this.BtnAllow.Click += new System.EventHandler(this.BtnAllow_Click);
+            this.BtnAllow.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // CbTimer
             // 
@@ -204,6 +212,7 @@ namespace Helpee
             this.CbTimer.Text = "Use Auto Timeout?";
             this.CbTimer.UseVisualStyleBackColor = true;
             this.CbTimer.CheckedChanged += new System.EventHandler(this.CbTimer_CheckedChanged);
+            this.CbTimer.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // NUDTimer
             // 
@@ -226,6 +235,7 @@ namespace Helpee
             0,
             0,
             0});
+            this.NUDTimer.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // LblTime
             // 
@@ -235,6 +245,7 @@ namespace Helpee
             this.LblTime.Size = new System.Drawing.Size(131, 13);
             this.LblTime.TabIndex = 34;
             this.LblTime.Text = "Time Allowed (In seconds)";
+            this.LblTime.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // CbKeyboard
             // 
@@ -247,6 +258,7 @@ namespace Helpee
             this.CbKeyboard.TabIndex = 35;
             this.CbKeyboard.Text = "Allow Keyboard Control";
             this.CbKeyboard.UseVisualStyleBackColor = true;
+            this.CbKeyboard.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // CbMouse
             // 
@@ -259,6 +271,7 @@ namespace Helpee
             this.CbMouse.TabIndex = 36;
             this.CbMouse.Text = "Allow Mouse Control";
             this.CbMouse.UseVisualStyleBackColor = true;
+            this.CbMouse.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             // 
             // FHelpee
             // 
@@ -287,6 +300,7 @@ namespace Helpee
             this.Controls.Add(this.PbScreenShare);
             this.Name = "FHelpee";
             this.Text = "Tech Support Helper";
+            this.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.FHelpee_PreviewKeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.PbScreenShare)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.NUDTimer)).EndInit();
             this.ResumeLayout(false);

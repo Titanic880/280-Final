@@ -30,7 +30,8 @@ namespace FinalProj_Helper
             //Sets up Network IP List
             TbIP.Text = Dns.GetHostEntry(SystemInformation.ComputerName).AddressList
                .Where(x => x.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork).FirstOrDefault().ToString();
-            Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont");
+            if(!Standards.EF_Database.Db_Logic.Connect("server=localhost,1433;database=280Final;user id=SA;password=SchoolCont"))
+                MessageBox.Show("DB offline");
             KeyPreview = true;
 
             messages.Add("");

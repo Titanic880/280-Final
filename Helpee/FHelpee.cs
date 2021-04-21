@@ -29,6 +29,12 @@ namespace Helpee
         //What is displayed
         Graphics ScreenGraphics;
 
+        //Stops keyboard input
+        private bool stop = false;
+        //Stops the user from double clicking the stop action
+        private const int minTime = 3;
+        private int stopTime = minTime;
+
         //Message history system
         private readonly List<string> messages = new List<string>();
         private int messagesPOS = 0;
@@ -37,6 +43,8 @@ namespace Helpee
         {
             InitializeComponent();
             //Gets the local IP to host on
+            this.KeyPreview = true;
+
             TbIP.Text = Dns
                 .GetHostEntry(SystemInformation.ComputerName)
                 .AddressList
@@ -88,6 +96,9 @@ namespace Helpee
             //System.Threading.Thread.Sleep(1500);
             //Cleans up what is not in use (goes from gigabytes in seconds to a consistent >100MB process)
             GC.Collect();
+            //Checks for stopping
+            if (!stop && stopTime > 0)
+                stopTime--;
         }
 
         private void BtnHost_Click(object sender, EventArgs e)
@@ -117,23 +128,27 @@ namespace Helpee
 
         private void Connection_InputIncoming(User_Input input)
         {
-            //Checks if the user is requesting control
-            if (!input.Request)
-            {   //Checks if the input is mouse or keyboard action
-                if (input.Input_Type)
-                {
-                    AutoItX.Send(input.Key_Pressed.ToString());
-                }
-                else
-                {
-                    //Calculates where to click
-                    int xClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Width * input.xRatio);
-                    int yClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Height * input.yRatio);
-                    //Clicks with left or right click
-                    if (input.Click_Side)
-                        AutoItX.MouseClick("LEFT", xClick, yClick);
+            //Checks if the user has stopped input
+            if (!stop)
+            {
+                //Checks if the user is requesting control
+                if (!input.Request)
+                {   //Checks if the input is mouse or keyboard action
+                    if (input.Input_Type)
+                    {
+                        AutoItX.Send(input.Key_Pressed.ToString());
+                    }
                     else
-                        AutoItX.MouseClick("RIGHT", xClick, yClick);
+                    {
+                        //Calculates where to click
+                        int xClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Width * input.xRatio);
+                        int yClick = Convert.ToInt32(General_Standards.Current_Screen.Bounds.Height * input.yRatio);
+                        //Clicks with left or right click
+                        if (input.Click_Side)
+                            AutoItX.MouseClick("LEFT", xClick, yClick);
+                        else
+                            AutoItX.MouseClick("RIGHT", xClick, yClick);
+                    }
                 }
             }
         }
@@ -281,7 +296,33 @@ namespace Helpee
                 default:
                     break;
             }
+        }
 
+        /// <summary>
+        /// Any control can/should tie into this
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FHelpee_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            //Checks if we're already stopped
+            if (!stop)
+            {   //checks for stop key
+                if (e.KeyCode == Keys.Escape)
+                {
+                    stop = true;
+                    stopTime = minTime;
+                    MessageBox.Show("Input has been blocked!");
+                }
+            }
+            else if (stopTime == 0)
+            {
+                if (e.KeyCode == Keys.Escape)
+                {
+                    stop = false;
+                    MessageBox.Show("Input has been re-enabled!");
+                }
+            }
         }
     }
 }
