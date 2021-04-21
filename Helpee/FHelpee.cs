@@ -52,9 +52,9 @@ namespace Helpee
 
         private void Timee_Tick(object sender, EventArgs e)
         {
+            timee.Stop();
             MessageBox.Show("Control has been revoked from the helper");
             BtnAllow.Enabled = true;
-            timee.Stop();
         }
 
         private void Tim_Tick(object sender, EventArgs e)
@@ -120,7 +120,7 @@ namespace Helpee
             //Checks if the user is requesting control
             if (!input.Request)
             {   //Checks if the input is mouse or keyboard action
-                if (!input.Input_Type)
+                if (input.Input_Type)
                 {
                     AutoItX.Send(input.Key_Pressed.ToString());
                 }
@@ -228,7 +228,7 @@ namespace Helpee
             if (CbTimer.Checked)
             {
                 BtnAllow.Enabled = false;
-                timee.Interval = Convert.ToInt32(NUDTimer.Value);
+                timee.Interval = Convert.ToInt32(NUDTimer.Value)*1000;
                 timee.Start();
             }
 

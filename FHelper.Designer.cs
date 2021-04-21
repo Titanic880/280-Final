@@ -139,7 +139,7 @@ namespace FinalProj_Helper
             this.TbUsername.Name = "TbUsername";
             this.TbUsername.Size = new System.Drawing.Size(121, 20);
             this.TbUsername.TabIndex = 10;
-            this.TbUsername.Visible = false;
+            this.TbUsername.PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(this.PbScreenShare_PreviewKeyDown);
             // 
             // LblPassword
             // 

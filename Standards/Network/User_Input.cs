@@ -13,7 +13,7 @@ namespace Standards.Network
         /// <summary>
         /// True == Keyboard input;; False == mouse input 
         /// </summary>
-        public bool Input_Type { get; set; } = true;
+        public bool Input_Type { get; set; } = false;
 
         /// <summary>
         /// Used to determine if the helper is asking to control
